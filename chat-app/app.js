@@ -5,7 +5,7 @@ const cookie= require("cookie")
 const app = express();
 app.use(cookieParser())
 
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
@@ -115,7 +115,7 @@ io.on('connection', socket => {
         modifyUser(userId,user.username,msg,user.number_of_connections,socket);
     });
 });
-
-http.listen(45176, () => {
-    console.log('listening on *:45176');
+const portNum=process.env.PORT ||80
+http.listen(portNum, () => {
+    console.log('listening on *:'+portNum);
 });
